@@ -59,7 +59,9 @@
                       <div class="col-md-4 ftco-animate">
                         <div class="blog-entry">
                           {% if apartment.photo %}
-                            <a href="blog-single.html" class="block-20" style="background-image: url({{ apartment.photo.image.url }});"></a>
+                            {% with apartment.photo.all|first as photo %}
+                                <a href="{% url 'apartments:apartments' apartment.pk %}" class="block-20" style="background-image: url({{ photo.image.url }});"></a>
+                            {% endwith %}
                           {% endif %}
                           <div class="text py-4">
                               <a href="blog-single.html"><div class="desc pt-3">

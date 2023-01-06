@@ -26,7 +26,7 @@ class Apartment(TimeStampedMixin, UUIDMixin):
     price = models.IntegerField(_('price'), blank=True, null=True)
     title_description = models.CharField(_('title description'), max_length=255)
     description = models.TextField(_('description'), blank=True, null=True)
-    photo = models.ForeignKey('Photo', on_delete=models.CASCADE)
+    photo = models.ManyToManyField('Photo', through='PhotoApartment')
 
     def __str__(self):
         return self.address
