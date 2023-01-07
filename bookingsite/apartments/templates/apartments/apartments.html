@@ -7,30 +7,27 @@
           <div class="row">
             <div class="col-lg-8 ftco-animate">
               <div class="single-slider owl-carousel">
-                <div class="item">
-                    <div class="properties-img" style="background-image: url(images/image_2.jpg);"></div>
-                </div>
-                <div class="item">
-                    <div class="properties-img" style="background-image: url(images/work-2.jpg);"></div>
-                </div>
-                <div class="item">
-                    <div class="properties-img" style="background-image: url(images/work-3.jpg);"></div>
-                </div>
+                    {% if apartment.photo %}
+                        {% for photo in apartment.photo.all %}
+                            <div class="item">
+                                <div class="properties-img" style="background-image: url({{ photo.image.url }});"></div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
               </div>
               <div class="mt-4">
-                <h5 class="mb-3">A small river named Duden flows by their place and supplies it with the necessary regelialia.</h5>
+                <h5 class="mb-3">{{ apartment.description }}</h5>
               </div>
 
             </div> <!-- .col-md-8 -->
 
             <div class="col-lg-4 sidebar ftco-animate">
               <div class="sidebar-box ftco-animate">
-                  <h1>ул. Мира 3</h1>
+                  <h1>{{ apartment.address }}</h1>
                 <ul class="categories">
                   <li></li>
-                  <li><h3>120,000 руб/сутки</h3></li>
-                  <li><h3>1 комната</h3></li>
-                  <li><h3>2 кровати</h3></li>
+                  <li><h3>{{ apartment.price }} руб/сутки</h3></li>
+                  <li><h3>{{ apartment.title_description }}</h3></li>
                 </ul>
               </div>
             </div><!-- END COL -->

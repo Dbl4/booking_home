@@ -8,5 +8,6 @@ app_name = 'apartments'
 
 urlpatterns = [
     path('', IndexListView.as_view(), name='index'),
-    path('apartments/<uuid:pk>', ApartmentListView.as_view(), name='apartments'),
+    # path('', ContactListView.as_view(), name='index'),
+    path('apartments/<uuid:pk>', ApartmentDetailView.as_view(), name='apartments'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

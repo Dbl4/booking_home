@@ -33,9 +33,9 @@ class PhotoAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('phone_number', 'messenger')
+    list_display = ('phone_number', 'location', 'description')
 
-    search_fields = ('phone_number', 'messenger')
+    search_fields = ('phone_number', 'location', 'description')
 
 
 @admin.register(Messenger)

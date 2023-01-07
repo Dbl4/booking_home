@@ -22,8 +22,8 @@ class UUIDMixin(models.Model):
 
 
 class Apartment(TimeStampedMixin, UUIDMixin):
-    address = models.CharField(_('address'), max_length=255, blank=True, null=True, default='')
-    price = models.IntegerField(_('price'), blank=True, null=True)
+    address = models.CharField(_('address'), max_length=255)
+    price = models.IntegerField(_('price'))
     title_description = models.CharField(_('title description'), max_length=255)
     description = models.TextField(_('description'), blank=True, null=True)
     photo = models.ManyToManyField('Photo', through='PhotoApartment')
@@ -53,10 +53,9 @@ class Contact(models.Model):
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. "
                                          "Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)  # Validators should be a list
+    phone_number = models.CharField(validators=[phone_regex], max_length=17)  # Validators should be a list
     description = models.TextField(_('description'), blank=True, null=True)
     location = models.TextField(_('location'), blank=True, null=True)
-    messenger = models.ForeignKey('Messenger', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.phone_number

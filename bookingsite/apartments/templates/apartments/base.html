@@ -1,14 +1,19 @@
 {% load static %}
+{% load contact_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
+<!--    <link rel="icon" href="data:,">-->
     <title>{{ title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <!--    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">-->
 <!--    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">-->
+
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon/favicon.ico' %}" type="image/x-icon">
 
 <!--    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">-->
     <link href="{% static 'css/animate.css' %}" rel="stylesheet">
@@ -17,7 +22,7 @@
 <!--    <link rel="stylesheet" href="css/owl.theme.default.min.css">-->
     <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
 
-<!--    <link rel="stylesheet" href="css/aos.css">-->
+    <link href="{% static 'css/aos.css' %}" rel="stylesheet">
 
     <link href="{% static 'css/ionicons.min.css' %}" rel="stylesheet">
 
@@ -30,12 +35,13 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
   </head>
   <body>
-
+    {% get_contacts as contacts %}
+    {% get_messengers as messengers %}
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
           <a class="navbar-brand" href="{% url 'apartments:index' %}">Квартирное бюро</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
+            <span class="oi oi-menu"></span> Меню
           </button>
 
           <div class="collapse navbar-collapse" id="ftco-nav">
@@ -43,7 +49,9 @@
                 <li class="nav-item active"><a href="{% url 'apartments:index' %}" class="nav-link">Главная</a></li>
                 <li class="nav-item"><a href="{% url 'apartments:index' %}#apartments" class="nav-link">Наши квартиры</a></li>
                 <li class="nav-item"><a href="#contacts" class="nav-link">Контакты</a></li>
-                <li class="nav-item"><a href="tel:+79168135607" class="nav-link">+7 916 813 56 07</a></li>
+                {% for contact in contacts %}
+                  <li class="nav-item"><a href="tel:{{ contact.phone_number }}" class="nav-link">{{ contact.phone_number }}</a></li>
+                {% endfor %}
             </ul>
           </div>
         </div>
@@ -59,19 +67,23 @@
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
               <h2 class="ftco-heading-2">Контакты</h2>
-              <span>Бронирование по телефону: <a href="tel:+79168135607">+7 916 813 56 07</a></span>
-              <p>Свяжитесь с нами в удобное для вас время (Описание для доп. инфы) любым удобным для вас способом.</p>
+              {% for contact in contacts %}
+                <span>Бронирование по телефону: <a href="tel:{{ contact.phone_number }}">{{ contact.phone_number }}</a></span>
+                <p>{{ contact.description }}</p>
+              {% endfor %}
               <ul class="list-unstyled">
-                <li><a href="https://wa.me/89168135607?text=urlencodedtext"><span class="icon-long-arrow-right mr-2"></span>WhatsApp</a></li>
-                <li><a href="https://t.me/vladbi4"><span class="icon-long-arrow-right mr-2"></span>Telegram</a></li>
-                <li><a href="mailto:vladke13@gmail.com"><span class="icon-long-arrow-right mr-2"></span>vladke13@gmail.com</a></li>
+                {% for messenger in messengers %}
+                  <li><a href="{{ messenger.link_messenger }}"><span class="icon-long-arrow-right mr-2"></span>{{ messenger.name_messenger }}</a></li>
+                {% endfor %}
               </ul>
             </div>
           </div>
           <div class="col-md">
             <div class="ftco-footer-widget mb-4">
-            	<h2 class="ftco-heading-2">Расположение</h2>
-            	<p>Оставьте ваш отзыв на яндексе (ссылка).</p>
+                <h2 class="ftco-heading-2">Расположение</h2>
+                {% for contact in contacts %}
+                  <p>{{ contact.location }}</p>
+                {% endfor %}
                 <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Af5bdcf2831923f3c8d132a60a4a4791142f05373c3b8698e663f940d695a8070&amp;source=constructor" width="100%" height="483" frameborder="0"></iframe>
             </div>
           </div>
@@ -88,15 +100,14 @@
     </footer>
 
 
-
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
   <script src="{% static 'js/jquery.min.js' %}"></script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
-<!--  <script src="js/popper.min.js"></script>-->
-<!--  <script src="js/bootstrap.min.js"></script>-->
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
   <script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
   <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
   <script src="{% static 'js/jquery.stellar.min.js' %}"></script>
@@ -105,8 +116,6 @@
   <script src="{% static 'js/aos.js' %}"></script>
   <script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
   <script src="{% static 'js/scrollax.min.js' %}"></script>
-<!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>-->
-<!--  <script src="js/google-map.js"></script>-->
   <script src="{% static 'js/main.js' %}"></script>
 
   </body>
