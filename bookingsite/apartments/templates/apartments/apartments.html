@@ -1,0 +1,37 @@
+{% extends 'apartments/base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="ftco-section">
+      <div class="container">
+          <div class="row">
+            <div class="col-lg-8 ftco-animate">
+              <div class="single-slider owl-carousel">
+                    {% if apartment.photo %}
+                        {% for photo in apartment.photo.all %}
+                            <div class="item">
+                                <div class="properties-img" style="background-image: url({{ photo.image.url }});"></div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+              </div>
+              <div class="mt-4">
+                <h5 class="mb-3">{{ apartment.description }}</h5>
+              </div>
+
+            </div> <!-- .col-md-8 -->
+
+            <div class="col-lg-4 sidebar ftco-animate">
+              <div class="sidebar-box ftco-animate">
+                  <h1>{{ apartment.address }}</h1>
+                <ul class="categories">
+                  <li></li>
+                  <li><h3>{{ apartment.price }} руб/сутки</h3></li>
+                  <li><h3>{{ apartment.title_description }}</h3></li>
+                </ul>
+              </div>
+            </div><!-- END COL -->
+          </div>
+      </div>
+</section>
+{% endblock %}
