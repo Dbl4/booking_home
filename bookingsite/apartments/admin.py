@@ -12,18 +12,20 @@ class PhotoApartmentInline(admin.TabularInline):
 class ApartmentAdmin(admin.ModelAdmin):
     inlines = (PhotoApartmentInline,)
 
-    # list_display = ('address', 'price', 'title_description', 'get_photo', 'get_html_photo')
-    list_display = ('address', 'price', 'title_description',)
+    list_display = ('address', 'price', 'title_description', 'get_photo', 'get_first_photo')
 
-    search_fields = ('address', 'price', 'title_description')
+    search_fields = ('address', 'price', 'title_description', 'get_photo', 'get_first_photo')
 
-    # def get_html_photo(self, object):
-    #     if object.photo:
-    #         yield mark_safe(f"<img src='{object.photo.image.url}' height=200 width=200")
-    #
-    # def get_photo(self, object):
-    #     if object.photo:
-    #         yield f"{object.photo.image.url}"
+    def get_first_photo(self, object):
+        if object.photo:
+            return mark_safe(f"<img src='{object.photo.first().image.url}' height=200 width=200")
+
+    def get_photo(self, object):
+        if object.photo:
+            link_photos = []
+            for photo in object.photo.all():
+                link_photos.append(f"{photo.image.url}")
+            return link_photos
 
 
 @admin.register(Photo)
