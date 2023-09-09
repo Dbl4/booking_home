@@ -2,34 +2,32 @@
 {% load static %}
 
 {% block content %}
+
 <section class="ftco-no-pb">
     <div class="container">
-        <div class="row d-md-flex slider-text align-items-center justify-content-end" data-scrollax-parent="true">
-          <div class="col-md-7 d-flex align-items-center ftco-animate fadeInUp ftco-animated" data-scrollax=" properties: { translateY: '70%' }" style="transform: translateZ(0px) translateY(-5.46414%);">
-            <div class="text pb-4 pt-5">
-                <h1 class="mb-4">Посуточная аренда квартир</h1>
-            </div>
-          </div>
-        </div>
+        <div class="row justify-content-center pb-4 pt-5">
+
+            <div class="col-md-8 text-center heading-section ftco-animate fadeInUp ftco-animated">
+            <h1 class="mb-4">Посуточная аренда квартир</h1>
+
+          </div></div>
     </div>
 </section>
 
-<section class="hero-wrap hero-wrap-2" style="background-image: url({% static 'images/bg_4.jpg' %});" data-stellar-background-ratio="0.5">
+<section class="hero-wrap hero-wrap-2" style="background-image: url(&quot;/static/images/bg_4.jpg&quot;); background-position: 50% -145px;" data-stellar-background-ratio="0.5">
   <div class="overlay"></div>
   <div class="container">
         <div class="row d-flex justify-content-start">
-            <div class="col-md-7 col-lg-5">
-                <div class="details p-5">
-                    <p class="loc"><span class="icon-my_location mr-2"></span> Нижегородская область, г. Кулебаки</p>
-                    <ul class="mb-4">
-                        <li><span>Удобное расположение в центре города</span></li>
+            <div class="details p-5">
+
+                    <ul class="mb-4 text-center">
+                        <p class="loc"><span class="icon-my_location mr-2"></span> Нижегородская область, г. Кулебаки</p><li><span>Удобное расположение в центре города</span></li>
                         <li><span>Полный комплект отчетных документов</span></li>
                         <li><span>Доступная цена</span></li>
                         <li><span>Безупречный сервис</span></li>
                         <li><span>Скидки на длительный срок</span></li>
                     </ul>
                 </div>
-            </div>
         </div>
     </div>
 </section>
@@ -47,7 +45,7 @@
           </div>
         </div>
         <div class="row">
-            <div class="col-md-3 mb-5 heading-section ftco-animate">
+            <div class="col-md-3 mb-5 text-center heading-section ftco-animate">
                 <h2 class="mb-4">О наших квартирах</h2>
                 <p class="mb-3">Все квартиры расположены в шаговой доступности от центра города.</p>
                 <p class="mb-3">Мы позаботились о том, чтобы наши гости чувствовали себя как дома, могли расслабиться, отдохнуть, при желании приготовить себе любимую еду.</p>
@@ -63,8 +61,8 @@
                                 <a href="{% url 'apartments:apartments' apartment.pk %}" class="block-20" style="background-image: url({{ photo.image.url }});"></a>
                             {% endwith %}
                           {% endif %}
-                          <div class="text py-4">
-                              <a href="blog-single.html"><div class="desc pt-3">
+                          <div class="text-center py-4">
+                              <a href="{% url 'apartments:apartments' apartment.pk %}"><div class="desc pt-3">
                                   <h4 class="price">{{ apartment.price }} руб/сутки</h4>
                                   <h5 class="location">{{ apartment.address }}</h5>
                                   <h5 class="details">{{ apartment.title_description }}</h5>
